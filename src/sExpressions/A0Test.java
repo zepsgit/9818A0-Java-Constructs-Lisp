@@ -1,6 +1,9 @@
 package sExpressions;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static sExpressions.SExp.cons;
+import static sExpressions.SExp.list;
+import static sExpressions.SExp.symbol;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +18,7 @@ class A0Test {
 		//Test for A0SExp
 		assertEquals(1, A0SExp.countPartitions(12, 12));
 		assertEquals(1, A0SExp.countPartitions(10, 1));
-		assertEquals(0, A0SExp.countPartitions(0, 0));
+		assertEquals(1, A0SExp.countPartitions(0, 0));
 		assertEquals(0, A0SExp.countPartitions(0, 9));
 		assertEquals(0, A0SExp.countPartitions(8, 9));
 		assertEquals(6, A0SExp.countPartitions(4, 3));
@@ -71,6 +74,11 @@ class A0Test {
 		SExp _list=SExp.list(_l1, l2, l3, _l4);
 		
 		assertEquals(_list, A0SExp.replace(x1, r, list));
+		
+		SExp lst = list( symbol("A"), cons( symbol("B"), symbol("A") )) ;
+		SExp result = A0SExp.replace( symbol("A"), symbol("C"), lst ) ;
+		SExp expected = list( symbol("C"), cons( symbol("B"), symbol("C") )) ;
+		assertEquals(result, expected);
 		
 	}
 

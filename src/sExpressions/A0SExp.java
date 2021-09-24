@@ -1,5 +1,10 @@
 package sExpressions;
 import sExpressions.SExp.Symbol;
+
+import static sExpressions.SExp.cons;
+import static sExpressions.SExp.list;
+import static sExpressions.SExp.symbol;
+
 import sExpressions.SExp.Cons;
 import sExpressions.SExp.Nil;
 public class A0SExp {
@@ -11,8 +16,8 @@ public class A0SExp {
 	* @ensure result equals the number of ways to partition a set of size n
 	*/
 	public static int countPartitions(int n, int k) {
-		if (k==0 || n==0 || k > n) return 0;
 		if (k==1 || k==n) return 1;
+		if (k==0 || n==0 || k > n) return 0;
 		return k * countPartitions(n-1, k) + countPartitions(n-1, k-1);
 	}
 	
@@ -83,6 +88,7 @@ public class A0SExp {
 	 * @param y The SExp data which contains the occurrence of a
 	 * @return a SExp in which all the occurrence of a was replaced with x
 	 */
+	/*
 	public static SExp replace(Symbol a, SExp x, SExp y) {
 		if (height(y) > 1) {
 			if (y.first() == a ) {
@@ -104,12 +110,48 @@ public class A0SExp {
 			else return y;
 		}
 	}
+	*/
+	
+	public static SExp replace(Symbol a, SExp x, SExp y) {
+		if( y.isNil() ) {
+		    return SExp.nil();
+		   }
+		   else if( y.isAtomic() ) {
+		    if( y.eq(a) )
+		     return x;
+		    else
+		     return y;
+		   }
+		   else{   
+		   if (y.first() instanceof Symbol&&!y.first().eq(a)) {
+		    return new Cons (y.first(), replace(a, x, y.rest()));
+		   }
+		   else
+		    return cons( replace(a, x, y.first() ), replace(a, x, y.rest() ) );
+		   }
+		  }
 	
 	//manual test
 	public static void main(String args[]) {
-		Symbol x1=new Symbol("hello");
+		System.out.println("count partition of (0,0) is:"+countPartitions(0,0));
+		SExp lst = SExp.list(  );
+		SExp lst2 = SExp.nil() ;
+		System.out.println("height of Nil is: "+height(lst2));
+		System.out.println("length of empty list is:"+length(lst));
+		SExp lst3 = SExp.list( SExp.symbol("A"), SExp.cons( SExp.symbol("B"), SExp.symbol("A") )) ;
+		System.out.println("replace(A,C, list3) is:"+replace(SExp.symbol("A"), SExp.symbol("C"),lst3));
+		System.out.println("replaced lst3 is:"+lst3);
+		
+		SExp lst4 = list( symbol("A"), cons( symbol("B"), symbol("A") )) ;
+		//SExp result = replace( symbol("A"), symbol("C"), lst4 ) ;
+		SExp expected = list( symbol("C"), cons( symbol("B"), symbol("C") )) ;
+		System.out.println("result"+replace( symbol("A"), symbol("C"), lst4 ));
+		System.out.println("lst4.first is:"+lst4.first().equals('A'));
+		System.out.println("expected"+expected);
+		/*
+		Symbol x1=symbol("hello");
 		Symbol y1=new Symbol("world");
-		Cons l1=new Cons(x1, y1);
+		Cons l1=cons(x1, y1);
 		Symbol x2=new Symbol("hel");
 		Symbol y2=new Symbol("wor");
 		Cons l2=new Cons(x2, y2);
@@ -122,14 +164,15 @@ public class A0SExp {
 		//Symbol y=new Symbol("replaced");
 		SExp list=SExp.list(l1, l2, l3, l4);
 		
-		Symbol r=new Symbol("replaced");
+		Symbol r=symbol("replaced");
 		Cons _l1=new Cons(r, y1);
 		Cons _y4=new Cons(_l1, x4);
 		Cons _l4=new Cons(x4, _y4);
 		SExp _list=SExp.list(_l1, l2, l3, _l4);
 		
 		System.out.println(_list);
-		System.out.println(list);
+		System.out.println("list is:"+list);
 		System.out.println(replace(x1, r, list));
+		*/
 	}
 }
