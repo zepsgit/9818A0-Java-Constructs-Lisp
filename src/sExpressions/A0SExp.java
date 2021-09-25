@@ -146,33 +146,7 @@ public class A0SExp {
 		//SExp result = replace( symbol("A"), symbol("C"), lst4 ) ;
 		SExp expected = list( symbol("C"), cons( symbol("B"), symbol("C") )) ;
 		System.out.println("result"+replace( symbol("A"), symbol("C"), lst4 ));
-		System.out.println("lst4.first is:"+lst4.first().equals('A'));
 		System.out.println("expected"+expected);
-		/*
-		Symbol x1=symbol("hello");
-		Symbol y1=new Symbol("world");
-		Cons l1=cons(x1, y1);
-		Symbol x2=new Symbol("hel");
-		Symbol y2=new Symbol("wor");
-		Cons l2=new Cons(x2, y2);
-		Symbol x3=new Symbol("he");
-		Symbol y3=new Symbol("wo");
-		Cons l3=new Cons(x3, y3);
-		Symbol x4=new Symbol("h");
-		Cons y4=new Cons(l1,x4);
-		Cons l4=new Cons(x4, y4);
-		//Symbol y=new Symbol("replaced");
-		SExp list=SExp.list(l1, l2, l3, l4);
 		
-		Symbol r=symbol("replaced");
-		Cons _l1=new Cons(r, y1);
-		Cons _y4=new Cons(_l1, x4);
-		Cons _l4=new Cons(x4, _y4);
-		SExp _list=SExp.list(_l1, l2, l3, _l4);
-		
-		System.out.println(_list);
-		System.out.println("list is:"+list);
-		System.out.println(replace(x1, r, list));
-		*/
 	}
 }
